@@ -7,7 +7,8 @@ class CacheManager(private val cacheConfig: Cache.Configuration) {
     /**
      * Properties
      */
-    private val lruCache: LruCache<String, ByteArray> = LruCache(cacheConfig.cacheLimit)
+    val lruCache: LruCache<String, ByteArray>
+            = LruCache(cacheConfig.cacheLimit * 1024 * 1024)
 
     /**
      * Public Methods
@@ -18,6 +19,10 @@ class CacheManager(private val cacheConfig: Cache.Configuration) {
 
     fun saveFile(url: String, byteStream: ByteArray) {
         lruCache.put(url, byteStream)
+    }
+
+    fun deleteFile(resourceUrl: String) {
+        lruCache.remove(resourceUrl)
     }
 
     fun getCacheSize(): Int = cacheConfig.cacheLimit

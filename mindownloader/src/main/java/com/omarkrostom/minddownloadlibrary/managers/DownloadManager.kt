@@ -37,17 +37,14 @@ class DownloadManager @Inject constructor(
         onResourceReady: (R) -> Unit,
         onResourceError: (NetworkError) -> Unit
     ) {
-        if (!url.isValidUrl()) {
-            onResourceError(NetworkError(INTERNAL_NETWORK_ERROR, MAL_FORMATTED_URL))
-            return
-        }
-
         downloadOrRetrieve(url, resource, onResourceReady, onResourceError)
     }
 
     fun cancelLoading(url: String) {
         networkCalls[url]?.cancel()
     }
+
+    fun isCached(url: String) = cacheManager.checkFileExists(url)
     
     /**
      * Private methods
@@ -87,5 +84,3 @@ class DownloadManager @Inject constructor(
     }
 
 }
-
-fun String.isValidUrl() = URLUtil.isValidUrl(this)
