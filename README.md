@@ -17,7 +17,7 @@ implementation project(':mindownloader')
 fun loadResource(RESOURCE_URL, BASE_RESOURCE_INSTACE, SUCCESS_CALLBACK(BaseResource), FAILURE_CALLBACK(NetworkError))
 ```
 
-4- `BaseResource` is the main class that enables you to extend other types, just inherit it, and override `getResource()` with your desired return type, this function merely converts byte stream into any type you infer.
+4- `BaseResource<T>` is the main interface that wraps other extended resources through type parameters, i.e, ImageResource which implements the `BaseResource<Bitmap>`, upon class implementation, implement the method `convert()` from byte stream to whatever type you specified in the type parameters.
 
 5- `NetworkError` is a general class error model that just contains a string, open for later expansion as well.
 
@@ -26,6 +26,6 @@ fun loadResource(RESOURCE_URL, BASE_RESOURCE_INSTACE, SUCCESS_CALLBACK(BaseResou
 2- RxJava</br>
 3- Okhttp/Retrofit/Gson</br>
 4- AndroidX Support Libraries</br>
-5- Dagger</br>
+5- Dagger Android</br>
 6- Lifecycle Components</br>
 7- MVVM + LiveData </br>
